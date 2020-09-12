@@ -18,16 +18,12 @@ import { delay } from 'rxjs/operators';
 })
 export class TodoComponent implements OnInit {
   form: FormGroup;
-  name = 'Vivek';
+  countries = ['India', 'Japan', 'USA', 'France'];
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       date: [''],
-      comments: [
-        'Default Comment',
-        [Validators.required],
-        [this.customValidator.bind(this)],
-      ],
+      comments: ['', [Validators.required], [this.customValidator.bind(this)]],
     });
   }
 
@@ -43,7 +39,7 @@ export class TodoComponent implements OnInit {
     //  get the current value of the control
     const value = ctrl.value;
     //  apply the validation
-    const result = this.name === value;
+    const result = this.countries.indexOf(value) !== -1;
     //  return error, if necessary
     if (!result) {
       return of({
