@@ -39,15 +39,15 @@ export class TodoComponent implements OnInit {
     //  get the current value of the control
     const value = ctrl.value;
     //  apply the validation
-    const result = this.countries.indexOf(value) !== -1;
+    const result = this.countries.find((c) => c.includes(value));
     //  return error, if necessary
     if (!result) {
       return of({
         'my-custom-error': true,
-      }).pipe(delay(500));
+      }).pipe(delay(50));
     } else {
       //  important!
-      return of(null).pipe(delay(500));
+      return of(null).pipe(delay(50));
     }
   }
 
