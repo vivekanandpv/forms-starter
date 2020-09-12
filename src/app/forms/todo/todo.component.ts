@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-todo',
@@ -12,7 +17,15 @@ export class TodoComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       date: [''],
-      comments: ['Default Comment'],
+      comments: [
+        'Default Comment',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(50),
+          Validators.pattern(/^[0-9]*$/),
+        ],
+      ],
     });
   }
 
@@ -27,6 +40,10 @@ export class TodoComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log('Form submit', this.form.value);
+    if (this.form.valid) {
+      console.log('Form submit', this.form.value);
+    } else {
+      alert('Invalid form');
+    }
   }
 }

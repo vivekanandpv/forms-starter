@@ -17,6 +17,18 @@
         placeholder="Ex. It makes me feel..."
         [formControl]="comments"
       ></textarea>
+      <mat-error *ngIf="comments.hasError('required')">
+        Comment is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="comments.hasError('minlength')">
+        Minlength is <strong>10</strong>
+      </mat-error>
+      <mat-error *ngIf="comments.hasError('maxlength')">
+        Maxlength is <strong>50</strong>
+      </mat-error>
+      <mat-error *ngIf="comments.hasError('pattern')">
+        <strong>Only numbers</strong>
+      </mat-error>
     </mat-form-field>
 
     <button mat-raised-button color="primary">Submit</button>
