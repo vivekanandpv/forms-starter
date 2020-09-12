@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 
@@ -13,6 +15,7 @@ import {
 })
 export class TodoComponent implements OnInit {
   form: FormGroup;
+  regex = /^[0-9]*$/;
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -23,7 +26,7 @@ export class TodoComponent implements OnInit {
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(50),
-          Validators.pattern(/^[0-9]*$/),
+          this.customValidator.bind(this),
         ],
       ],
     });
@@ -35,6 +38,22 @@ export class TodoComponent implements OnInit {
 
   get comments(): FormControl {
     return this.form.controls['comments'] as FormControl;
+  }
+
+  customValidator(ctrl: AbstractControl): ValidationErrors {
+    //  get the current value of the control
+    const value = ctrl.value;
+    //  apply the validation
+    const result = this.regex.test(value);
+    //  return error, if necessary
+    if (!result) {
+      return {
+        'my-custom-error': true,
+      };
+    } else {
+      //  important!
+      return null;
+    }
   }
 
   ngOnInit(): void {}

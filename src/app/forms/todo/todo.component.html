@@ -26,7 +26,7 @@
       <mat-error *ngIf="comments.hasError('maxlength')">
         Maxlength is <strong>50</strong>
       </mat-error>
-      <mat-error *ngIf="comments.hasError('pattern')">
+      <mat-error *ngIf="comments.hasError('my-custom-error')">
         <strong>Only numbers</strong>
       </mat-error>
     </mat-form-field>
