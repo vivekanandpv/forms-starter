@@ -7,6 +7,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { numbersOnly } from 'src/app/_validators/custom.validators';
 
 @Component({
   selector: 'app-todo',
