@@ -7,7 +7,9 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 import { numbersOnly } from 'src/app/_validators/custom.validators';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo',
@@ -16,19 +18,15 @@ import { numbersOnly } from 'src/app/_validators/custom.validators';
 })
 export class TodoComponent implements OnInit {
   form: FormGroup;
-  regex = /^[0-9]*$/;
+  name = 'Vivek';
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       date: [''],
       comments: [
         'Default Comment',
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(50),
-          this.customValidator.bind(this),
-        ],
+        [Validators.required],
+        [this.customValidator.bind(this)],
       ],
     });
   }
@@ -41,19 +39,19 @@ export class TodoComponent implements OnInit {
     return this.form.controls['comments'] as FormControl;
   }
 
-  customValidator(ctrl: AbstractControl): ValidationErrors {
+  customValidator(ctrl: AbstractControl): Observable<ValidationErrors> {
     //  get the current value of the control
     const value = ctrl.value;
     //  apply the validation
-    const result = this.regex.test(value);
+    const result = this.name === value;
     //  return error, if necessary
     if (!result) {
-      return {
+      return of({
         'my-custom-error': true,
-      };
+      }).pipe(delay(500));
     } else {
       //  important!
-      return null;
+      return of(null).pipe(delay(500));
     }
   }
 
