@@ -13,14 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NavbarComponent,
     PlaygroundComponent,
-    HomeComponent
+    HomeComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
