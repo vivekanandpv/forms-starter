@@ -15,6 +15,8 @@ import { AdminGuard } from '../admin.guard';
 import { AuthenticatedGuard } from '../authenticated.guard';
 import { ManagerGuard } from '../manager.guard';
 import { UserGuard } from '../user.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { UserGuard } from '../user.guard';
     AuthenticatedGuard,
     ManagerGuard,
     UserGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 })
 export class FormsModule {}
