@@ -12,6 +12,7 @@ import { RestService } from '../rest.service';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ChartsModule } from 'ng2-charts';
 
 const DECLARABLES = [];
 
@@ -27,6 +28,7 @@ const MODULES = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
+  ChartsModule,
 ];
 
 @NgModule({
