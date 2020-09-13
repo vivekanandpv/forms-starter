@@ -10,6 +10,7 @@ import {
 import { Observable, of } from 'rxjs';
 import { numbersOnly } from 'src/app/_validators/custom.validators';
 import { delay } from 'rxjs/operators';
+import { RestService } from 'src/app/rest.service';
 
 @Component({
   selector: 'app-todo',
@@ -18,44 +19,55 @@ import { delay } from 'rxjs/operators';
 })
 export class TodoComponent implements OnInit {
   form: FormGroup;
-  countries = ['India', 'Japan', 'USA', 'France'];
+  categories = ['Books', 'Pens', 'Office Stationery', 'Music', 'Toys'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private restService: RestService) {
     this.form = this.fb.group({
-      date: [''],
-      comments: ['', [Validators.required], [this.customValidator.bind(this)]],
+      name: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      price: [
+        '',
+        [
+          Validators.min(0),
+          Validators.pattern(/^[0-9]{1,5}([.]{1}[0-9]{1,2})?$/),
+        ],
+      ],
+      taxRate: [
+        '',
+        [
+          Validators.min(0),
+          Validators.max(75),
+          Validators.pattern(/^[0-9]{1,2}([.]{1}[0-9]{1,2})?$/),
+        ],
+      ],
     });
   }
 
-  get date(): FormControl {
-    return this.form.controls['date'] as FormControl;
+  get name(): FormControl {
+    return this.form.controls['name'] as FormControl;
   }
 
-  get comments(): FormControl {
-    return this.form.controls['comments'] as FormControl;
+  get category(): FormControl {
+    return this.form.controls['category'] as FormControl;
   }
 
-  customValidator(ctrl: AbstractControl): Observable<ValidationErrors> {
-    //  get the current value of the control
-    const value = ctrl.value;
-    //  apply the validation
-    const result = this.countries.find((c) => c.includes(value));
-    //  return error, if necessary
-    if (!result) {
-      return of({
-        'my-custom-error': true,
-      }).pipe(delay(50));
-    } else {
-      //  important!
-      return of(null).pipe(delay(50));
-    }
+  get price(): FormControl {
+    return this.form.controls['price'] as FormControl;
+  }
+
+  get taxRate(): FormControl {
+    return this.form.controls['taxRate'] as FormControl;
   }
 
   ngOnInit(): void {}
 
   onSubmit() {
     if (this.form.valid) {
-      console.log('Form submit', this.form.value);
+      this.restService.createProduct(this.form.value).subscribe((response) => {
+        console.log('Server', response);
+        this.form.reset();
+        alert('Successfully created');
+      });
     } else {
       alert('Invalid form');
     }
