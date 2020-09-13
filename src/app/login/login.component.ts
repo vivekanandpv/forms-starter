@@ -5,7 +5,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
 
@@ -22,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private restService: RestService,
-    private router: Router
+    private router: Router,
+    private ar: ActivatedRoute
   ) {
     this.form = this.fb.group({
       username: ['', [Validators.required]],
@@ -55,7 +56,12 @@ export class LoginComponent implements OnInit {
           console.log('Server', response);
           this.restService.auth = response.token;
           //  navigate to home
-          this.router.navigate(['/home']);
+          const returnUrl = this.ar.snapshot.queryParamMap.get('returnUrl');
+          if (returnUrl) {
+            this.router.navigate([returnUrl]);
+          } else {
+            this.router.navigate(['/home']);
+          }
         });
     } else {
       alert('Invalid form');

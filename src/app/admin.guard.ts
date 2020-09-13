@@ -30,7 +30,11 @@ export class AdminGuard implements CanActivate {
     return this.restService.authStatus$.pipe(
       map((v) => {
         if (!v) {
-          this.router.navigate(['/forms/login']);
+          this.router.navigate(['/forms/login'], {
+            queryParams: {
+              returnUrl: state.url,
+            },
+          });
           return false;
         } else {
           if (v.roles && v.roles.indexOf('admin') !== -1) {
