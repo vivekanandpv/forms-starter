@@ -1,5 +1,7 @@
 <h3>Login</h3>
-<p *ngIf="isLoggedIn$ | async">Logged In</p>
+<p *ngIf="authStatus$ | async as auth">
+  Logged In: {{ auth.name }} {{ auth.roles }}
+</p>
 <hr />
 
 <mat-card>

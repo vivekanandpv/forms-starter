@@ -8,7 +8,25 @@ export class RestService {
   private authSubject = new BehaviorSubject<any>(null);
   private tokenDecoder = new JwtHelperService();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.authSubject.next(this.getDecodedStoredToken());
+  }
+
+  private storeToken(token) {
+    sessionStorage.setItem('token', token);
+  }
+
+  getStoredToken() {
+    return sessionStorage.getItem('token');
+  }
+
+  private getDecodedStoredToken() {
+    return this.tokenDecoder.decodeToken(sessionStorage.getItem('token'));
+  }
+
+  private deleteStoredToken() {
+    sessionStorage.removeItem('token');
+  }
 
   get authStatus$() {
     return this.authSubject.asObservable();
@@ -16,8 +34,8 @@ export class RestService {
 
   set auth(token: string) {
     const decodedToken = this.tokenDecoder.decodeToken(token);
-    console.log('Token decoded', decodedToken);
-    this.authSubject.next(token);
+    this.storeToken(token);
+    this.authSubject.next(decodedToken);
   }
 
   createProduct(product) {
@@ -29,6 +47,11 @@ export class RestService {
       `http://localhost:3000/api/auth/login/${label}`,
       userCredentials
     );
+  }
+
+  logout() {
+    this.deleteStoredToken();
+    this.authSubject.next(null);
   }
 
   getAdminResources() {

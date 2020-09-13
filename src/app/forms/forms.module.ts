@@ -11,6 +11,8 @@ import { LoginComponent } from '../login/login.component';
 import { ManagerComponent } from '../manager/manager.component';
 import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
 import { UserComponent } from '../user/user.component';
+import { AdminGuard } from '../admin.guard';
+import { AuthenticatedGuard } from '../authenticated.guard';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,10 @@ import { UserComponent } from '../user/user.component';
     ReactiveFormsModule,
     SharedModule,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-IN' }],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-IN' },
+    AdminGuard,
+    AuthenticatedGuard,
+  ],
 })
 export class FormsModule {}
