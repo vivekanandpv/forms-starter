@@ -5,6 +5,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { RestService } from '../rest.service';
 
 @Component({
@@ -13,6 +14,7 @@ import { RestService } from '../rest.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  isLoggedIn$: Observable<any>;
   form: FormGroup;
   roles = ['admin', 'manager', 'user'];
 
@@ -22,6 +24,8 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]],
       role: ['admin'],
     });
+
+    this.isLoggedIn$ = this.restService.authStatus$;
   }
 
   get username(): FormControl {
@@ -42,8 +46,9 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       this.restService
         .login(this.role.value, this.form.value)
-        .subscribe((response) => {
+        .subscribe((response: any) => {
           console.log('Server', response);
+          this.restService.auth = response.token;
         });
     } else {
       alert('Invalid form');
