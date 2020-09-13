@@ -9,6 +9,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RestService } from '../rest.service';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 const DECLARABLES = [];
 
@@ -21,6 +24,9 @@ const MODULES = [
   MatButtonModule,
   MatNativeDateModule,
   HttpClientModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
 ];
 
 @NgModule({
