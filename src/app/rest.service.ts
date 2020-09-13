@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RestService {
@@ -39,12 +40,12 @@ export class RestService {
   }
 
   createProduct(product) {
-    return this.http.post('http://localhost:3000/api/items', product);
+    return this.http.post(`${environment.baseUrl}/items`, product);
   }
 
   login(label, userCredentials) {
     return this.http.post(
-      `http://localhost:3000/api/auth/login/${label}`,
+      `${environment.baseUrl}/auth/login/${label}`,
       userCredentials
     );
   }

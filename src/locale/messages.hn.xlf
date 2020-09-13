@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="8133d193a666a0014939110a9d9ead808ebbc2d5" datatype="html">
+        <source>Welcome to Angular learning</source>
+        <target>एंगुलर लर्निंग में आपका स्वागत है</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+        <note priority="1" from="description">learning the new framework</note>
+        <note priority="1" from="meaning">greeting</note>
+      </trans-unit>
+      <trans-unit id="205da17a19ebd3d7311907ced3cbf69ba88c0f4c" datatype="html">
+        <source>
+  <x id="ICU" equiv-text="{count, plural, =0 {...} =1 {...} other {...}}"/>
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="eee6731201e9f24e75c710f8466fa608b0b1877f" datatype="html">
+        <source>{VAR_PLURAL, plural, =0 {No friends} =1 {Only one friend is there} other {There are
+  <x id="INTERPOLATION" equiv-text="{{ count }}"/> friends} }</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/home/home.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

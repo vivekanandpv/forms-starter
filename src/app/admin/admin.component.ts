@@ -35,12 +35,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getAdminResource() {
+  getAdminResource(): void {
     this.restService.getAdminResources().subscribe((response: any) => {
       console.log('Server Response', response);
       alert(response.message);
