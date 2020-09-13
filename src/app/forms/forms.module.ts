@@ -13,6 +13,8 @@ import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
 import { UserComponent } from '../user/user.component';
 import { AdminGuard } from '../admin.guard';
 import { AuthenticatedGuard } from '../authenticated.guard';
+import { ManagerGuard } from '../manager.guard';
+import { UserGuard } from '../user.guard';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { AuthenticatedGuard } from '../authenticated.guard';
     { provide: MAT_DATE_LOCALE, useValue: 'en-IN' },
     AdminGuard,
     AuthenticatedGuard,
+    ManagerGuard,
+    UserGuard,
   ],
 })
 export class FormsModule {}

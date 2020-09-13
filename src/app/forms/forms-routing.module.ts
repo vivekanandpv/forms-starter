@@ -4,8 +4,10 @@ import { AdminGuard } from '../admin.guard';
 import { AdminComponent } from '../admin/admin.component';
 import { AuthenticatedGuard } from '../authenticated.guard';
 import { LoginComponent } from '../login/login.component';
+import { ManagerGuard } from '../manager.guard';
 import { ManagerComponent } from '../manager/manager.component';
 import { UnauthorizedComponent } from '../unauthorized/unauthorized.component';
+import { UserGuard } from '../user.guard';
 import { UserComponent } from '../user/user.component';
 import { TodoComponent } from './todo/todo.component';
 
@@ -26,12 +28,12 @@ const routes: Routes = [
   {
     path: 'manager',
     component: ManagerComponent,
-    canActivate: [AuthenticatedGuard],
+    canActivate: [ManagerGuard],
   },
   {
     path: 'user',
     component: UserComponent,
-    canActivate: [AuthenticatedGuard],
+    canActivate: [UserGuard],
   },
   {
     path: 'unauthorized',
